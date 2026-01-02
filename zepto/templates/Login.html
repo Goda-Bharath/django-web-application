@@ -91,20 +91,21 @@
     <div class="login-container">
         <h2>Login</h2>
 
-        <form>
+        <form method="post" novalidate>
+            {%  csrf_token %}
             <div class="input-group">
                 <label>Username</label>
-                <input type="text" placeholder="Enter username">
+                <input type="text" name="username" placeholder="Enter username">
             </div>
 
             <div class="input-group">
                 <label>Password</label>
-                <input type="password" placeholder="Enter password">
+                <input type="password" name="password" placeholder="Enter password">
             </div>
             
             <div class="input-group">
-                <label>Conform Password</label>
-                <input type="password" placeholder="Enter password">
+                <label>ConformPassword</label>
+                <input type="password" name="ConformPassword" placeholder="Enter password">
             </div>
 
             <button type="submit">Login</button>
