@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>players List</title>
+</head>
+<body>
+
+<h2 style="color: rgb(0, 255, 13);">Name of the players Table</h2>
+<a href="{% url 'franchise_lists' %}" class="back-link">click to back</a>
+<table >
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>country</th>
+            <th>age</th>
+            <th>role</th>
+            <th>nationality</th>
+            <th>Franchise</th>
+           
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for k in players %}
+        <tr>
+            <td>
+              <a href="{% url 'franchise_data' k.id %}">{{ k.name }}</a> 
+            </td>
+            <td>{{ k.name }}</td>
+            <td>{{ k.country }}</td>
+            <td>{{ k.age }}</td>
+            <td>{{ k.role}}</td>
+            <td>{{ k.nationality}}</td>  
+            <td>{{ k.Franchise}}</td>          
+
+            <td>
+                {% if k.logo_url %}
+                    <img src="{{ k.logo_url.url }}" alt="logo" height="45">
+                {% else %}
+                    <span>No logo</span>
+                {% endif %}
+            </td>
+            <td>
+               <a style="background-color: blue; color: whitesmoke; font-size: medium;  border: solid black 1px;" href="{%url 'update_players' k.id%}">update</a>
+            </td>
+            <td>
+                <form method="POST"  action="{% url 'delete_players' k.id %}">
+                   {%csrf_token%}
+                   <button type="submit" style="background-color: blue; color: whitesmoke; font-size: medium;  border: solid black 1px;" onclick="return confirm('Waring ❌❌ are you sure want to delete the players')">delete</button>
+               </form>
+            </td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>

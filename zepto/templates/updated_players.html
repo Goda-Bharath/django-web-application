@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f4f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 30px;
+            width: 420px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Update Registration players <span>{{players.name}}</span></h2>
+
+    <form method="post" method="post" novalidate>
+         {% csrf_token %}
+        <label>Organization Name</label>
+        <input type="text" name="name" placeholder="Enter organization name" required value="{{players.name}}">
+
+        <label>countary</label>
+        <input type="text" name="short_name" placeholder="Enter short name" required value="{{players.country}}">
+
+        <label>Age</label>
+        <input type="number" name="founded_year" placeholder="YYYY" required value="{{players.age}}">
+
+        <label>Logo</label>
+        <input type="file" name="logo_url">
+
+        <label>Role</label>
+        <input type="text" name="city" placeholder="Enter city" required value="{{ players.role }}">
+
+        <label>Nationality</label>
+        <input type="text" name="state" placeholder="Enter state" required value="{{players.nationality}}">
+
+        <label>Franchises</label>
+        <input type="text" name="country" placeholder="Enter country" required value="{{players.franchises}}">
+
+        <button type="submit">Update</button>
+    </form>
+</div>
+
+</body>
+</html>

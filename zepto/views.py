@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-
+from .forms import playersfroms,players
 from .models import franchise
 
 # Create your views here.
@@ -84,3 +84,44 @@ def delete_franchies(request,id):
     if request.method == "POST":
         franchiee.delete()
         return redirect ("franchise_list")
+    
+
+def regisetr_players(request):
+    if request.method == "POST":
+        form = playersfroms(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+            return HttpResponse("Register players succefully") 
+        else:
+            return HttpResponse("Invalide data entered",satus=400)
+    else:
+       form = playersfroms()
+       return render(request,"register_player.html",{"form":form})
+
+
+def player_list(request):
+    playerss = players.objects.all()
+    return render (request,"players_list.html",{"players":playerss})
+
+def update_players(request,id):
+   playerss = players.objects.get(id=id)
+   if request.method == "POST":
+       playerss.name = request.POST.get("name")
+       playerss.country = request.POST.get("country")
+       playerss.age = request.POST.get("age")
+       playerss.role = request.POST.get("role")
+       playerss.nationality = request.POST.get("nationality")
+       playerss.franchise = request.POST.get("franchise")
+       
+       playerss.save()
+       return redirect("players_lists")
+   else:
+        return render(request,"updated_players.html",{"players":playerss})
+       
+    
+def delete_players(request,id):
+    playersss = players.objects.get(id=id)
+    
+    if request.method == "POST":
+        playersss.delete()
+        return redirect ("players_lists")
