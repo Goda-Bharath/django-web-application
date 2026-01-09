@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.model import user
 
 # Create your models here.
 
@@ -35,3 +36,18 @@ class players(models.Model):
     
     def __str__(self):
         return f"{self.name},[{self.country}]"
+    
+
+class stadium(models.Model):
+    name = models.CharField(max_length=120)
+    city = models.CharField(max_length=20)
+    country = models.CharField(max_length=150)
+    capicity = models.PositiveBigIntegerField()
+    home_team = models.ForeignKey(franchise,on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"{self.name}-{self.city}"
+    
+class profilepic(models.Model):
+    user = models.OneToOneField(user,on_delete=models.CASCADE)
+    

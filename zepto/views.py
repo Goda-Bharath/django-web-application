@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .forms import playersfroms,players
+from .forms import playersfroms,players,StadiumForm,stadium
 from .models import franchise
 
 # Create your views here.
@@ -125,3 +125,21 @@ def delete_players(request,id):
     if request.method == "POST":
         playersss.delete()
         return redirect ("players_lists")
+
+def stidume_ground(request):
+    if request.method == "POST":
+        form = StadiumForm(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect("stadium_listed") 
+        else:
+            return HttpResponse("invalide data")
+    else:
+        form = StadiumForm()
+
+    return render(request, "stidum_reg.html", {"form": form})
+
+
+def stadium_list(request):
+    staidmuss = stadium.objects.all()
+    return render(request, "stadium_list.html",{"staidums":staidmuss})

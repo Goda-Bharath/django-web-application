@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stadium List</title>
+</head>
+<body>
+
+<h2 style="color: rgb(0, 255, 13);">Stadium List</h2>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>City</th>
+            <th>Capacity</th>
+            <th>Home Team</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for k in staidums %}
+        <tr>
+            <td>{{ k.name }}</td>
+            <td>{{ k.city }}</td>
+            <td>{{ k.capicity }}</td>
+            <td>{{ k.home_team }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>
