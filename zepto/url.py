@@ -15,5 +15,5 @@ urlpatterns = [
    path("updateplayer/<int:id>/",views.update_players,name="update_players"),
    path("deleteplayer/<int:id>/",views.delete_players,name="delete_players"),
    path("staidumreg/", views.stidume_ground, name="staiudem_create"),
-
+   path("liststadium/", views.stadium_list, name="stadium_listed"),
 ]
