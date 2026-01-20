@@ -30,3 +30,7 @@ class UserRegisterfrom(forms.ModelForm):
        model = User
        fields = ["username","email","password","conform_password"]
     
+class profileForm(forms.ModelForm):
+    class Meta:
+        model = profilepic
+        fields = ["phone_number","address","profile_picture"]
