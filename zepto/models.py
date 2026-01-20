@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.model import user
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -49,5 +49,10 @@ class stadium(models.Model):
         return f"{self.name}-{self.city}"
     
 class profilepic(models.Model):
-    user = models.OneToOneField(user,on_delete=models.CASCADE)
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    phone_number = models.CharField(max_length=10,blank=True)
+    address = models.CharField(max_length=200,blank=True)
+    profile_pic = models.ImageField(upload_to='profile_picc/',blank=True, null=True)
     
+def __str__(self):
+    return f"{self.user.username}'s profile"

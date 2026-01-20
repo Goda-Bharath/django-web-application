@@ -131,7 +131,7 @@ def stidume_ground(request):
         form = StadiumForm(request.POST,request.FILES)
         if form.is_valid():
             form.save()
-            return redirect("stadium_listed") 
+            return redirect("stadium_listed ") 
         else:
             return HttpResponse("invalide data")
     else:
