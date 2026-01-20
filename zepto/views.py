@@ -143,3 +143,7 @@ def stidume_ground(request):
 def stadium_list(request):
     staidmuss = stadium.objects.all()
     return render(request, "stadium_list.html",{"staidums":staidmuss})
+
+def profilepic(request):
+    if request.method == 'GET':
+        
