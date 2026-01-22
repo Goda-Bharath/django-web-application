@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .forms import playersfroms,players,StadiumForm,stadium
+from .forms import playersfroms,players,StadiumForm,stadium,profilepic
 from .models import franchise
 
 # Create your views here.
@@ -144,6 +144,22 @@ def stadium_list(request):
     staidmuss = stadium.objects.all()
     return render(request, "stadium_list.html",{"staidums":staidmuss})
 
-def profilepic(request):
-    if request.method == 'GET':
+def reg_user(reqest):
+    if reqest.method == 'POST':
+      user_deatils = reg_user()
+      profile_form = profilepic()
+      if user_deatils.is_vaild() and profile_form.is_valid():
+        user = user_deatils.save(commit=False)
+        user.set_password(user_deatils.cleaned_data['password'])
         
+        profile = profile_form.save(commit=False)
+        profile.user = user
+        profile.save()
+        return HttpResponse("Profil pic is updated succefully");
+    else:
+      user_deatils = reg_user()
+      profile_form = profilepic()
+      return render (reqest, 'regis_user.html',{user_deatils:'user_deatils',profile_form:'profile_form'})
+
+def profilepic(request):
+    return render(request, "profilepic.html")

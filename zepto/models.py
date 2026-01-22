@@ -52,7 +52,7 @@ class profilepic(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     phone_number = models.CharField(max_length=10,blank=True)
     address = models.CharField(max_length=200,blank=True)
-    profile_pic = models.ImageField(upload_to='profile_picc/',blank=True, null=True)
+    profile_picture = models.ImageField(upload_to='profile_picc/',blank=True, null=True)
     
 def __str__(self):
     return f"{self.user.username}'s profile"
