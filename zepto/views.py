@@ -1,8 +1,9 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .forms import playersfroms,players,StadiumForm,stadium,profilepic
+from .forms import playersfroms,players,StadiumForm,stadium,profilepic,UserRegisterfrom
 from .models import franchise
-
+from django.contrib.auth.form  import AuthenticationForm
+from django.contrib.auth.form import aunthenticate,login
 # Create your views here.
 def home (request):
     return HttpResponse("Welcome to zepto website")
@@ -146,20 +147,41 @@ def stadium_list(request):
 
 def reg_user(reqest):
     if reqest.method == 'POST':
-      user_deatils = reg_user()
-      profile_form = profilepic()
-      if user_deatils.is_vaild() and profile_form.is_valid():
-        user = user_deatils.save(commit=False)
-        user.set_password(user_deatils.cleaned_data['password'])
-        
-        profile = profile_form.save(commit=False)
-        profile.user = user
-        profile.save()
-        return HttpResponse("Profil pic is updated succefully");
+      user_deatils = UserRegisterfrom(request.POST)
+      profile_form = profilepic(request.POST,request.FILES)
+      if user_deatils.is_valid() and profile_form.is_valid():
+          user = user_deatils.save(commit=False)
+          user.set_password(user_deatils.cleaned_data['password'])
+          user.save()
+          
+
+          profile = profile_form.save(commit=False)
+          profile.user = user
+          profile.save()
+          return HttpResponse("Profil pic is updated succefully");
     else:
       user_deatils = reg_user()
       profile_form = profilepic()
       return render (reqest, 'regis_user.html',{user_deatils:'user_deatils',profile_form:'profile_form'})
 
-def profilepic(request):
-    return render(request, "profilepic.html")
+def Login_users(request):
+    if request.method == 'POST':
+       login_form  = AuthenticationForm(request,data=request.POST)
+       if login_form.is_valid():
+          username = login_form.cleaned_data['username']
+          password = login_form.cleaned_data['password']
+       
+          user = aunthenticate(request,username=username, password=password)
+          
+          if user is not None:
+                login(request, user)
+                return HttpResponse("You have successfuly logged in!")
+          else:
+                return HttpResponse ("Incorrect username or password")
+              
+    else:
+      login_form = AuthenticationForm(request)
+      return render (request,'login_user.html',{'login_form':login_form})
+
+
+ 
