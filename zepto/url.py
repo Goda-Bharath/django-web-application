@@ -17,5 +17,5 @@ urlpatterns = [
    path("staidumreg/", views.stidume_ground, name="staiudem_create"),
    path("liststadium/", views.stadium_list, name="stadium_listed"),
    path("userreg/", views.reg_user, name="user_deatils" ),
-   path("profilereg/",views.profilepic,name="profilepic"),
+   path("profilereg/",views.Login_users,name="profilepic"),
 ]

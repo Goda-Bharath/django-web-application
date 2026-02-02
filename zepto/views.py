@@ -2,8 +2,10 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .forms import playersfroms,players,StadiumForm,stadium,profilepic,UserRegisterfrom
 from .models import franchise
-from django.contrib.auth.form  import AuthenticationForm
-from django.contrib.auth.form import aunthenticate,login
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import AuthenticationForm
+from django.views.generic import View;
 # Create your views here.
 def home (request):
     return HttpResponse("Welcome to zepto website")
@@ -145,8 +147,8 @@ def stadium_list(request):
     staidmuss = stadium.objects.all()
     return render(request, "stadium_list.html",{"staidums":staidmuss})
 
-def reg_user(reqest):
-    if reqest.method == 'POST':
+def reg_user(request):
+    if request.method == 'POST':
       user_deatils = UserRegisterfrom(request.POST)
       profile_form = profilepic(request.POST,request.FILES)
       if user_deatils.is_valid() and profile_form.is_valid():
@@ -160,9 +162,16 @@ def reg_user(reqest):
           profile.save()
           return HttpResponse("Profil pic is updated succefully");
     else:
-      user_deatils = reg_user()
+      user_deatils = UserRegisterfrom()
       profile_form = profilepic()
-      return render (reqest, 'regis_user.html',{user_deatils:'user_deatils',profile_form:'profile_form'})
+    return render(
+    request,
+    'regis_user.html',
+    {
+        'user_deatils': user_deatils,
+        'profile_form': profile_form
+    }
+)
 
 def Login_users(request):
     if request.method == 'POST':
@@ -171,7 +180,7 @@ def Login_users(request):
           username = login_form.cleaned_data['username']
           password = login_form.cleaned_data['password']
        
-          user = aunthenticate(request,username=username, password=password)
+          user = authenticate(request,username=username, password=password)
           
           if user is not None:
                 login(request, user)
@@ -180,8 +189,13 @@ def Login_users(request):
                 return HttpResponse ("Incorrect username or password")
               
     else:
-      login_form = AuthenticationForm(request)
-      return render (request,'login_user.html',{'login_form':login_form})
+      return render(
+    request,
+    'profileuser.html',
+    {
+        'login_form':login_form
+    }
+)
 
 
- 
+

@@ -34,3 +34,4 @@ class profileForm(forms.ModelForm):
     class Meta:
         model = profilepic
         fields = ["phone_number","address","profile_picture"]
+        

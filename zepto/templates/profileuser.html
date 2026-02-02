@@ -1,12 +1,11 @@
-</html>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Register Page</title>
-    <link rel="stylesheet" href="login.css">
+    <title>User Register</title>
 </head>
+
 <style>
     * {
         margin: 0;
@@ -17,7 +16,7 @@
 
     body {
         height: 100vh;
-        background: linear-gradient(135deg, #ffffff, #555dff);
+        background: linear-gradient(135deg, #ffffff, #ffb055);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -25,13 +24,13 @@
 
     .login-container {
         background: #fff;
-        width: 350px;
+        width: 360px;
         padding: 30px;
         border-radius: 8px;
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     }
 
-    .login-container h2 {
+    h2 {
         text-align: center;
         margin-bottom: 20px;
         color: #333;
@@ -53,11 +52,6 @@
         padding: 10px;
         border: 1px solid #ccc;
         border-radius: 5px;
-        outline: none;
-    }
-
-    .input-group input:focus {
-        border-color: #667eea;
     }
 
     button {
@@ -90,29 +84,47 @@
 <body>
 
     <div class="login-container">
-        <h2>Register user</h2>
+        <h2>User Registration</h2>
 
-        <form method="post" novalidate>
+        <!-- IMPORTANT: enctype added -->
+        <form method="post" enctype="multipart/form-data" novalidate>
             {% csrf_token %}
+
             <div class="input-group">
                 <label>Username</label>
-                <input type="text" name="username" placeholder="Enter username">
+                <input type="text" name="username" placeholder="Enter username" required>
+            </div>
+
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="Enter email" required>
             </div>
 
             <div class="input-group">
                 <label>Password</label>
-                <input type="password" name="password" placeholder="Enter password">
+                <input type="password" name="password" placeholder="Enter password" required>
             </div>
 
-            <button type="submit">Login</button>
+            <div class="input-group">
+                <label>Confirm Password</label>
+                <input type="password" name="confirm_password" placeholder="Confirm password" required>
+            </div>
+
+            <div class="input-group">
+                <from method="POST" enctype="multipart/form-data">
+                    <label>Profile Image</label>
+                    <input type="file" name="image">
+
+                </from>
+            </div>
+
+            <button type="submit">Register</button>
 
             <p class="text">
-                Don’t have an account?
-                <a href="#">Sign up</a>
+                Already have an account?
+                <a href="{% url 'login' %}">Login</a>
             </p>
         </form>
     </div>
 
 </body>
-
-</html>
