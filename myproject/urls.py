@@ -21,7 +21,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('zepto.url'))
+    path('',include('zepto.urls')),
+    path('storedata/', include('datastoreapp.urls')),
 ]
 
 
