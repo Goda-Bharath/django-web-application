@@ -186,8 +186,7 @@ def Login_users(request):
                 login(request, user)
                 return HttpResponse("You have successfuly logged in!")
           else:
-                return HttpResponse ("Incorrect username or password")
-              
+                return HttpResponse ("Incorrect username or password")            
     else:
       return render(
     request,

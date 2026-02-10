@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     'zepto',
     'datastoreapp',
-]
+    'rest_framework',
+'']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
