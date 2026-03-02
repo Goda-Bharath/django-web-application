@@ -123,8 +123,7 @@ def update_players(request,id):
        
     
 def delete_players(request,id):
-    playersss = players.objects.get(id=id)
-    
+    playersss = players.objects.get(id=id) 
     if request.method == "POST":
         playersss.delete()
         return redirect ("players_lists")
@@ -155,8 +154,6 @@ def reg_user(request):
           user = user_deatils.save(commit=False)
           user.set_password(user_deatils.cleaned_data['password'])
           user.save()
-          
-
           profile = profile_form.save(commit=False)
           profile.user = user
           profile.save()

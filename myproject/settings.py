@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'zepto',
     'datastoreapp',
     'rest_framework',
-'']
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
