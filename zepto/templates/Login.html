@@ -4,119 +4,116 @@
 <head>
     <meta charset="UTF-8">
     <title>Login Page</title>
-    <link rel="stylesheet" href="login.css">
-</head>
+
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: Arial, sans-serif;
-    }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
 
-    body {
-        height: 100vh;
-        background: linear-gradient(135deg, #667eea, #764ba2);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+body{
+    height:100vh;
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
 
-    .login-container {
-        background: #fff;
-        width: 350px;
-        padding: 30px;
-        border-radius: 8px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    }
+.login-container{
+    background:#fff;
+    width:350px;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
 
-    .login-container h2 {
-        text-align: center;
-        margin-bottom: 20px;
-        color: #333;
-    }
+.login-container h2{
+    text-align:center;
+    margin-bottom:20px;
+    color:#333;
+}
 
-    .input-group {
-        margin-bottom: 15px;
-    }
+.input-group{
+    margin-bottom:15px;
+}
 
-    .input-group label {
-        display: block;
-        margin-bottom: 5px;
-        color: #555;
-        font-size: 14px;
-    }
+.input-group label{
+    display:block;
+    margin-bottom:5px;
+    color:#555;
+    font-size:14px;
+}
 
-    .input-group input {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        outline: none;
-    }
+.input-group input{
+    width:100%;
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    outline:none;
+}
 
-    .input-group input:focus {
-        border-color: #667eea;
-    }
+.input-group input:focus{
+    border-color:#667eea;
+}
 
-    button {
-        width: 100%;
-        padding: 10px;
-        background: #667eea;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-        cursor: pointer;
-    }
+button{
+    width:100%;
+    padding:10px;
+    background:#667eea;
+    color:#fff;
+    border:none;
+    border-radius:5px;
+    font-size:16px;
+    cursor:pointer;
+}
 
-    button:hover {
-        background: #5a67d8;
-    }
+button:hover{
+    background:#5a67d8;
+}
 
-    .text {
-        text-align: center;
-        margin-top: 15px;
-        font-size: 14px;
-    }
+.text{
+    text-align:center;
+    margin-top:15px;
+    font-size:14px;
+}
 
-    .text a {
-        color: #667eea;
-        text-decoration: none;
-    }
+.text a{
+    color:#667eea;
+    text-decoration:none;
+}
 </style>
+
+</head>
 
 <body>
 
-    <div class="login-container">
-        <h2>Login</h2>
+<div class="login-container">
+    <h2>Login</h2>
 
-        <form method="post" novalidate>
-            {%  csrf_token %}
-            <div class="input-group">
-                <label>Username</label>
-                <input type="text" name="username" placeholder="Enter username">
-            </div>
+    <form method="POST">
+        {% csrf_token %}
 
-            <div class="input-group">
-                <label>Password</label>
-                <input type="password" name="password" placeholder="Enter password">
-            </div>
-            
-            <div class="input-group">
-                <label>ConformPassword</label>
-                <input type="password" name="ConformPassword" placeholder="Enter password">
-            </div>
+        <div class="input-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Enter username" required>
+        </div>
 
-            <button type="submit">Login</button>
+        <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter password" required>
+        </div>
 
-            <p class="text">
-                Don’t have an account?
-                <a href="#">Sign up</a>
-            </p>
-        </form>
-    </div>
+        <button type="submit">Login</button>
+
+        <p class="text">
+            Don’t have an account?
+            <a href="/signup/">Sign up</a>
+        </p>
+
+    </form>
+</div>
 
 </body>
-
 </html>
