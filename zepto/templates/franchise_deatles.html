@@ -3,15 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Franchise Details</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .logo {
+            margin-bottom: 15px;
+        }
+
+        .logo img {
+            height: 80px;
+            border-radius: 8px;
+        }
+
+        h2 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .info {
+            text-align: left;
+            margin-top: 15px;
+        }
+
+        .info p {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 15px;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: white;
+            background: #3498db;
+            padding: 8px 14px;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background: #2980b9;
+        }
+    </style>
 </head>
+
 <body>
-    <h4>{{ franchise.name }} - data</h4>
-    <h4>{{ franchise.short_name }} - data</h4>
-    <h4>{{ franchise.founded_year }} - data</h4>
-    <h4>{{ franchise.city }} - data</h4>
-    <h4>{{ franchise.state }} - data</h4>
-    <h4>{{ franchise.country }} - data</h4>
-    <h4>{{ franchise.logo_url }} - data</h4>
+
+<div class="container">
+    <div class="card">
+
+        <div class="logo">
+            {% if franchise.logo_url %}
+                <img src="{{ franchise.logo_url.url }}" alt="logo">
+            {% else %}
+                <p>No Logo Available</p>
+            {% endif %}
+        </div>
+
+        <h2>{{ franchise.name }} ({{ franchise.short_name }})</h2>
+
+        <div class="info">
+            <p><span class="label">Founded Year:</span> {{ franchise.founded_year }}</p>
+            <p><span class="label">City:</span> {{ franchise.city }}</p>
+            <p><span class="label">State:</span> {{ franchise.state }}</p>
+            <p><span class="label">Country:</span> {{ franchise.country }}</p>
+        </div>
+
+        <a href="{% url 'franchise_lists' %}" class="back-link">⬅ Back</a>
+
+    </div>
+</div>
+
 </body>
 </html>
