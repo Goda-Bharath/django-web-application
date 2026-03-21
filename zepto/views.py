@@ -94,7 +94,7 @@ def regisetr_players(request):
         form = playersfroms(request.POST,request.FILES)
         if form.is_valid():
             form.save()
-            return HttpResponse("Register players succefully") 
+            return render(request,"regsuccfullypop.html") 
         else:
             return HttpResponse("Invalide data entered",satus=400)
     else:
