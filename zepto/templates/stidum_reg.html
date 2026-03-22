@@ -1,23 +1,86 @@
-<!-- stidum_reg.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register Stadium</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-box {
+            background: #111;
+            padding: 30px;
+            border-radius: 12px;
+            width: 500px;
+            box-shadow: 0 0 25px #00f2ff;
+            animation: fadeIn 0.7s ease;
+        }
+
+        h3 {
+            text-align: center;
+            color: #00f2ff;
+            margin-bottom: 20px;
+        }
+
+        .btn-custom {
+            width: 100%;
+            background: #00f2ff;
+            color: #000;
+            border: none;
+            font-weight: bold;
+        }
+
+        .btn-custom:hover {
+            background: #0ff;
+        }
+
+        label {
+            color: #ccc !important;
+        }
+
+        input, select, textarea {
+            background: #222 !important;
+            color: #fff !important;
+            border: none !important;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
+
 <body>
     {% load crispy_forms_tags %}
-    <div class="container mt-4">
-        <h3>Register Stadium</h3>
+
+    <div class="card-box">
+        <h3>🏟 Register Stadium</h3>
 
         <form method="POST">
             {% csrf_token %}
+
             {{ form|crispy }}
-            <button class="btn btn-danger m-4">Submit</button>
+
+            <button class="btn btn-custom mt-3">Submit</button>
         </form>
     </div>
+
 </body>
 </html>
