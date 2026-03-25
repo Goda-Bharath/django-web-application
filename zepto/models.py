@@ -8,9 +8,9 @@ class franchise(models.Model):
     short_name = models.CharField(max_length=40)
     founded_year = models.IntegerField()
     logo_url = models.ImageField(upload_to="franchise_logos/", blank=True,null=True)
-    city = models.CharField(max_length=100)
-    state = models.CharField(max_length=100)
-    country = models.CharField(max_length=100)
+    city = models.CharField(max_length=80)
+    state = models.CharField(max_length=80)
+    country = models.CharField(max_length=80)
     
 
     class Meta:
@@ -40,8 +40,8 @@ class players(models.Model):
 
 class stadium(models.Model):
     name = models.CharField(max_length=120)
-    city = models.CharField(max_length=20)
-    country = models.CharField(max_length=150)
+    city = models.CharField(max_length=80)
+    country = models.CharField(max_length=80)
     capicity = models.PositiveBigIntegerField()
     home_team = models.ForeignKey(franchise,on_delete=models.CASCADE)
     
