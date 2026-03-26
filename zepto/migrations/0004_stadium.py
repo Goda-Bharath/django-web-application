@@ -15,9 +15,9 @@ class Migration(migrations.Migration):
             name='stadium',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=120)),
+                ('name', models.CharField(max_length=80)),
                 ('city', models.CharField(max_length=20)),
-                ('country', models.CharField(max_length=150)),
+                ('country', models.CharField(max_length=80)),
                 ('capicity', models.PositiveBigIntegerField()),
                 ('home_team', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='zepto.franchise')),
             ],
