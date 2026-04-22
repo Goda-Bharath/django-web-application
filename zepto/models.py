@@ -24,6 +24,8 @@ class Franchise(models.Model):
         return f"{self.name} ({self.short_name})"
 
 
+
+
 class Player(models.Model):
     ROLE_CHOICES = [
         ("Batsman", "Batsman"),
@@ -62,7 +64,6 @@ class Stadium(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.city}"
-
 
 class ProfilePic(models.Model):
     user = models.OneToOneField(

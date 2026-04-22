@@ -6,11 +6,12 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.views.generic import View;
-# Create your views here.
+
+
 def home (request):
     return HttpResponse("Welcome to zepto website")
 
-def reister (request):
+def reigster (request):
      if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -30,12 +31,12 @@ def login (request):
       return render(request,'Login.html')
     
 
-def franchise_list (request):
-    if request.method == 'POST':
-        name = request.POST.get("name")
-        short_name = request.POST.get("short_name")
-        founded_year = request.POST.get("founded_year")
-        city = request.POST.get("city")
+def franchise_list (request):                           
+    if request.method == 'POST':                               
+        name = request.POST.get("name")                             
+        short_name = request.POST.get("short_name")            
+        founded_year = request.POST.get("founded_year")         
+        city = request.POST.get("city")                        
         state = request.POST.get("state")
         country = request.POST.get("country")
         logo_url = request.POST.get("logo_url")
