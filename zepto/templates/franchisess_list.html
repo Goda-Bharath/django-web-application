@@ -2,9 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Franchise List</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #f4f6f9;
@@ -26,7 +31,7 @@
             background: #3498db;
             padding: 8px 14px;
             border-radius: 6px;
-            transition: 0.3s;
+            transition: .3s;
         }
 
         .back-link:hover {
@@ -38,7 +43,7 @@
             background: white;
             border-radius: 10px;
             padding: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, .1);
         }
 
         table {
@@ -51,14 +56,15 @@
             color: white;
         }
 
-        th, td {
+        th,
+        td {
             padding: 12px 15px;
             text-align: center;
         }
 
         tbody tr {
             border-bottom: 1px solid #ddd;
-            transition: 0.2s;
+            transition: .2s;
         }
 
         tbody tr:hover {
@@ -67,6 +73,7 @@
 
         img {
             border-radius: 6px;
+            object-fit: cover;
         }
 
         .btn {
@@ -75,7 +82,6 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 14px;
-            transition: 0.3s;
             text-decoration: none;
         }
 
@@ -112,8 +118,16 @@
             font-size: 13px;
         }
 
-        @media (max-width: 768px) {
-            th, td {
+        .empty-row {
+            padding: 20px;
+            font-weight: 600;
+            color: #777;
+        }
+
+        @media(max-width:768px) {
+
+            th,
+            td {
                 padding: 8px;
                 font-size: 13px;
             }
@@ -122,62 +136,76 @@
 </head>
 
 <body>
-<h2>🏏 Franchise List</h2>
-<a href="{% url 'players_lists' %}" class="back-link">⬅ Back</a>
 
-<div class="table-container">
-<table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Short Name</th>
-            <th>Founded Year</th>
-            <th>City</th>
-            <th>Logo</th>
-            <th>Update</th>
-            <th>Delete</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for j in franchises %}
-        <tr>
-            <td>
-                <a href="{% url 'franchise_data' j.id %}" class="franchise-link">
-                    {{ j.name }}
-                </a>
-            </td>
-            <td>{{ j.short_name }}</td>
-            <td>{{ j.founded_year }}</td>
-            <td>{{ j.city }}</td>
+    <h2>🏏 Franchise List</h2>
 
-            <td>
-                {% if j.logo_url %}
-                    <img src="{{ j.logo_url.url }}" alt="logo" height="45">
-                {% else %}
-                    <span class="no-logo">No logo</span>
-                {% endif %}
-            </td>
+    <a href="{% url 'players_lists' %}" class="back-link">⬅ Back</a>
 
-            <td>
-                <a href="{% url 'update_franchies' j.id %}" class="btn btn-update">
-                    Update
-                </a>
-            </td>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Short Name</th>
+                    <th>Founded Year</th>
+                    <th>City</th>
+                    <th>Logo</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
 
-            <td>
-                <form method="POST" action="{% url 'delete_franchies' j.id %}">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-delete"
-                        onclick="return confirm('⚠️ Are you sure you want to delete this franchise?')">
-                        Delete
-                    </button>
-                </form>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-</div>
+            <tbody>
+
+                {% for j in franchises %}
+                <tr>
+                    <td>
+                        <a href="{% url 'franchise_data' j.id %}" class="franchise-link">
+                            {{ j.name }}
+                        </a>
+                    </td>
+
+                    <td>{{ j.short_name }}</td>
+                    <td>{{ j.founded_year }}</td>
+                    <td>{{ j.city }}</td>
+
+                    <td>
+                        {% if j.logo_url %}
+                        <img src="{{ j.logo_url.url }}" alt="{{ j.name }} logo" height="45" loading="lazy">
+                        {% else %}
+                        <span class="no-logo">No logo</span>
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        <a href="{% url 'update_franchies' j.id %}" class="btn btn-update">
+                            Update
+                        </a>
+                    </td>
+
+                    <td>
+                        <form method="POST" action="{% url 'delete_franchies' j.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-delete"
+                                onclick="return confirm('Delete this franchise?')">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="empty-row">
+                        No franchise records available.
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
 
 </body>
+
 </html>
