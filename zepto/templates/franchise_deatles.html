@@ -3,72 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Franchise Details</title>
+
+    <title>{{ franchise.name }} | Franchise Details</title>
 
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f4f6f9;
+        * {
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #eef2ff, #f8fafc);
+            padding: 40px 20px;
+            color: #1e293b;
         }
 
         .container {
-            max-width: 600px;
+            width: 100%;
+            max-width: 700px;
             margin: auto;
         }
 
         .card {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            padding: 35px;
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.12);
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-wrapper {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            border-radius: 20px;
+            background: #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        .logo-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 10px;
+        }
+
+        .logo-placeholder {
+            color: #64748b;
+            font-size: 14px;
             text-align: center;
         }
 
-        .logo {
-            margin-bottom: 15px;
+        .header h1 {
+            font-size: 30px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
         }
 
-        .logo img {
-            height: 80px;
-            border-radius: 8px;
+        .short-name {
+            display: inline-block;
+            background: #eef2ff;
+            color: #4f46e5;
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 14px;
+            font-weight: 600;
         }
 
-        h2 {
-            margin-bottom: 15px;
-            color: #2c3e50;
+        .details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 25px;
         }
 
-        .info {
-            text-align: left;
-            margin-top: 15px;
+        .detail-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 18px;
+            transition: 0.25s ease;
         }
 
-        .info p {
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
-            font-size: 15px;
+        .detail-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
         }
 
-        .label {
-            font-weight: bold;
-            color: #555;
+        .detail-label {
+            display: block;
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 6px;
+        }
+
+        .detail-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
         }
 
         .back-link {
-            display: inline-block;
-            margin-top: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             text-decoration: none;
             color: white;
-            background: #3498db;
-            padding: 8px 14px;
-            border-radius: 6px;
-            transition: 0.3s;
+            background: linear-gradient(135deg, #4f46e5, #2563eb);
+            padding: 12px 22px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: 0.3s ease;
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
         }
 
         .back-link:hover {
-            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(37, 99, 235, 0.35);
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 20px 12px;
+            }
+
+            .card {
+                padding: 25px 18px;
+                border-radius: 18px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .details {
+                grid-template-columns: 1fr;
+            }
+
+            .logo-wrapper {
+                width: 100px;
+                height: 100px;
+            }
         }
     </style>
 </head>
@@ -76,28 +171,97 @@
 <body>
 
 <div class="container">
+
     <div class="card">
 
-        <div class="logo">
-            {% if franchise.logo_url %}
-                <img src="{{ franchise.logo_url.url }}" alt="logo">
-            {% else %}
-                <p>No Logo Available</p>
+        <!-- Header -->
+        <div class="header">
+
+            <div class="logo-wrapper">
+
+                {% if franchise.logo_url %}
+                    <img
+                        src="{{ franchise.logo_url.url }}"
+                        alt="{{ franchise.name }} logo"
+                    >
+                {% else %}
+                    <span class="logo-placeholder">
+                        No Logo Available
+                    </span>
+                {% endif %}
+
+            </div>
+
+            <h1>{{ franchise.name }}</h1>
+
+            {% if franchise.short_name %}
+                <span class="short-name">
+                    {{ franchise.short_name }}
+                </span>
             {% endif %}
+
         </div>
 
-        <h2>{{ franchise.name }} ({{ franchise.short_name }})</h2>
+        <div class="details">
 
-        <div class="info">
-            <p><span class="label">Founded Year:</span> {{ franchise.founded_year }}</p>
-            <p><span class="label">City:</span> {{ franchise.city }}</p>
-            <p><span class="label">State:</span> {{ franchise.state }}</p>
-            <p><span class="label">Country:</span> {{ franchise.country }}</p>
+            <div class="detail-box">
+                <span class="detail-label">
+                    Founded Year
+                </span>
+
+                <span class="detail-value">
+                    {{ franchise.founded_year }}
+                </span>
+            </div>
+
+
+            <div class="detail-box">
+                <span class="detail-label">
+                    City
+                </span>
+
+                <span class="detail-value">
+                    {{ franchise.city }}
+                </span>
+            </div>
+
+
+            <div class="detail-box">
+                <span class="detail-label">
+                    State
+                </span>
+
+                <span class="detail-value">
+                    {{ franchise.state }}
+                </span>
+            </div>
+
+
+            <div class="detail-box">
+                <span class="detail-label">
+                    Country
+                </span>
+
+                <span class="detail-value">
+                    {{ franchise.country }}
+                </span>
+            </div>
+
         </div>
 
-        <a href="{% url 'franchise_lists' %}" class="back-link">⬅ Back</a>
+        <div class="actions">
+
+            <a
+                href="{% url 'franchise_lists' %}"
+                class="back-link"
+            >
+                ← Back to Franchises
+            </a>
+
+        </div>
 
     </div>
+
 </div>
 
 </body>
