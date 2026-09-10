@@ -1,229 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Update organization registration details">
 
-    <title>Update Registration</title>
+    <title>Update Registration | {{ franchise.name }}</title>
 
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        :root {
+            --bg-primary: #0b1120;
+            --bg-secondary: #111827;
+            --bg-input: #1f2937;
+            --border: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent: #22d3ee;
+            --accent-dark: #06b6d4;
+            --danger: #f87171;
+            --radius: 12px;
         }
 
         body {
             min-height: 100vh;
-            padding: 30px 15px;
-
+            padding: 32px 16px;
             display: flex;
             justify-content: center;
             align-items: center;
-
             background:
                 radial-gradient(
-                    circle at top left,
-                    rgba(0, 242, 255, 0.15),
-                    transparent 35%
+                    circle at 10% 10%,
+                    rgba(34, 211, 238, 0.12),
+                    transparent 30%
                 ),
-                linear-gradient(
-                    135deg,
-                    #0f2027,
-                    #203a43,
-                    #2c5364
-                );
+                radial-gradient(
+                    circle at 90% 90%,
+                    rgba(59, 130, 246, 0.10),
+                    transparent 30%
+                ),
+                var(--bg-primary);
+            color: var(--text-primary);
+            font-family:
+                Inter,
+                "Segoe UI",
+                Arial,
+                sans-serif;
         }
 
         .container {
             width: 100%;
-            max-width: 520px;
-
-            background: #111827;
-
-            padding: 35px;
-
-            border-radius: 20px;
-
-            border: 1px solid rgba(0, 242, 255, 0.2);
-
+            max-width: 620px;
+            padding: 36px;
+            background: rgba(17, 24, 39, 0.96);
+            border: 1px solid rgba(148, 163, 184, 0.15);
+            border-radius: 22px;
             box-shadow:
-                0 20px 50px rgba(0, 0, 0, 0.4),
-                0 0 25px rgba(0, 242, 255, 0.15);
-
-            animation: fadeIn 0.6s ease;
+                0 25px 70px rgba(0, 0, 0, 0.45),
+                0 0 35px rgba(34, 211, 238, 0.06);
+            animation: fadeIn 0.45s ease-out;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 28px;
+            margin-bottom: 32px;
         }
 
         .icon {
-            width: 60px;
-            height: 60px;
-
-            margin: 0 auto 15px;
-
+            width: 58px;
+            height: 58px;
+            margin: 0 auto 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-
             border-radius: 16px;
-
-            background: rgba(0, 242, 255, 0.1);
-
-            font-size: 28px;
+            background: rgba(34, 211, 238, 0.10);
+            border: 1px solid rgba(34, 211, 238, 0.15);
+            font-size: 25px;
         }
 
-        h2 {
-            color: #00f2ff;
-            font-size: 27px;
+        h1 {
             margin-bottom: 8px;
+            font-size: 27px;
+            line-height: 1.2;
+            color: var(--text-primary);
+        }
+
+        .highlight {
+            color: var(--accent);
         }
 
         .subtitle {
-            color: #94a3b8;
+            color: var(--text-secondary);
             font-size: 14px;
+            line-height: 1.6;
         }
 
         .form-group {
-            margin-bottom: 18px;
+            margin-bottom: 20px;
         }
 
         label {
             display: block;
-
-            margin-bottom: 7px;
-
-            color: #d1d5db;
-
+            margin-bottom: 8px;
+            color: #e2e8f0;
             font-size: 14px;
             font-weight: 600;
         }
 
+        .required {
+            color: var(--danger);
+        }
+
         input {
             width: 100%;
-
-            padding: 12px 14px;
-
-            background: #1f2937;
-
-            color: white;
-
-            border: 1px solid #374151;
-
-            border-radius: 10px;
-
+            height: 46px;
+            padding: 0 14px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
             outline: none;
-
+            background: var(--bg-input);
+            color: var(--text-primary);
             font-size: 14px;
-
-            transition: 0.25s ease;
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
         }
 
         input::placeholder {
-            color: #6b7280;
+            color: #64748b;
+        }
+
+        input:hover {
+            border-color: #475569;
         }
 
         input:focus {
-            border-color: #00f2ff;
-
-            box-shadow:
-                0 0 0 3px rgba(0, 242, 255, 0.1);
+            border-color: var(--accent);
+            background: #243244;
+            box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.10);
         }
 
         input[type="file"] {
-            padding: 9px;
+            height: auto;
+            padding: 10px 12px;
+            cursor: pointer;
+        }
+
+        input[type="file"]::file-selector-button {
+            margin-right: 10px;
+            padding: 7px 12px;
+            border: 0;
+            border-radius: 8px;
+            background: #334155;
+            color: #f8fafc;
             cursor: pointer;
         }
 
         .current-logo {
-            margin-top: 10px;
-
+            margin-top: 12px;
+            padding: 10px;
             display: flex;
             align-items: center;
             gap: 12px;
-
-            color: #94a3b8;
-
-            font-size: 13px;
+            border: 1px solid rgba(148, 163, 184, 0.12);
+            border-radius: 12px;
+            background: rgba(15, 23, 42, 0.7);
         }
 
         .current-logo img {
-            width: 55px;
-            height: 55px;
-
+            width: 58px;
+            height: 58px;
             object-fit: cover;
-
             border-radius: 10px;
-
-            border: 1px solid #374151;
+            border: 1px solid var(--border);
         }
 
-        .button-group {
+        .current-logo span {
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .form-actions {
             display: flex;
             gap: 12px;
-
-            margin-top: 25px;
+            margin-top: 30px;
         }
 
-        button,
-        .back-btn {
+        .btn {
             flex: 1;
-
-            padding: 12px;
-
-            border: none;
-
-            border-radius: 10px;
-
-            font-size: 15px;
-
+            min-height: 46px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 11px 18px;
+            border: 0;
+            border-radius: var(--radius);
+            font-size: 14px;
             font-weight: 700;
-
-            text-align: center;
-
             text-decoration: none;
-
             cursor: pointer;
-
-            transition: 0.3s ease;
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
         }
 
-        .update-btn {
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-primary {
             background: linear-gradient(
                 135deg,
-                #00f2ff,
-                #00c6ff
+                var(--accent),
+                var(--accent-dark)
             );
-
-            color: #001014;
+            color: #06202a;
         }
 
-        .update-btn:hover {
+        .btn-primary:hover {
             transform: translateY(-2px);
-
-            box-shadow:
-                0 8px 20px rgba(0, 242, 255, 0.25);
+            box-shadow: 0 10px 25px rgba(34, 211, 238, 0.20);
         }
 
-        .back-btn {
-            background: #374151;
-            color: #e5e7eb;
+        .btn-secondary {
+            background: #334155;
+            color: #e2e8f0;
         }
 
-        .back-btn:hover {
-            background: #4b5563;
+        .btn-secondary:hover {
+            background: #475569;
             transform: translateY(-2px);
+        }
+
+        .form-note {
+            margin-top: 18px;
+            text-align: center;
+            color: #64748b;
+            font-size: 12px;
+            line-height: 1.5;
         }
 
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(25px);
+                transform: translateY(18px);
             }
 
             to {
@@ -232,17 +260,57 @@
             }
         }
 
-        @media (max-width: 500px) {
+        @media (max-width: 600px) {
+            body {
+                padding: 20px 12px;
+                align-items: flex-start;
+            }
+
             .container {
-                padding: 25px 20px;
+                margin-top: 20px;
+                padding: 26px 20px;
+                border-radius: 18px;
             }
 
-            .button-group {
-                flex-direction: column;
-            }
-
-            h2 {
+            h1 {
                 font-size: 23px;
+            }
+
+            .form-actions {
+                flex-direction: column-reverse;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .container {
+                padding: 22px 16px;
+            }
+
+            .header {
+                margin-bottom: 25px;
+            }
+
+            .icon {
+                width: 52px;
+                height: 52px;
+                font-size: 22px;
+            }
+
+            input {
+                font-size: 13px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
             }
         }
     </style>
@@ -250,97 +318,80 @@
 
 <body>
 
-    <div class="container">
+    <main class="container">
 
-        <!-- Header -->
-        <div class="header">
+        <header class="header">
+            <div class="icon" aria-hidden="true">✏️</div>
 
-            <div class="icon">
-                ✏️
-            </div>
-
-            <h2>
-                Update Registration
-            </h2>
+            <h1>
+                Update <span class="highlight">Registration</span>
+            </h1>
 
             <p class="subtitle">
-                Update details for {{ franchise.name }}
+                Update the registration details for
+                <strong>{{ franchise.name }}</strong>
             </p>
+        </header>
 
-        </div>
-
-
-        <!-- Update Form -->
         <form
             method="POST"
             enctype="multipart/form-data"
+            autocomplete="off"
         >
 
             {% csrf_token %}
 
-
-            <!-- Organization Name -->
             <div class="form-group">
-
                 <label for="name">
-                    Organization Name
+                    Organization Name <span class="required">*</span>
                 </label>
 
                 <input
                     type="text"
                     id="name"
                     name="name"
-                    placeholder="Enter organization name"
                     value="{{ franchise.name }}"
+                    placeholder="Enter organization name"
+                    maxlength="150"
                     required
                 >
-
             </div>
 
-
-            <!-- Short Name -->
             <div class="form-group">
-
                 <label for="short_name">
-                    Short Name
+                    Short Name <span class="required">*</span>
                 </label>
 
                 <input
                     type="text"
                     id="short_name"
                     name="short_name"
-                    placeholder="Enter short name"
                     value="{{ franchise.short_name }}"
+                    placeholder="Enter short name"
+                    maxlength="50"
                     required
                 >
-
             </div>
 
-
-            <!-- Founded Year -->
             <div class="form-group">
-
                 <label for="founded_year">
-                    Founded Year
+                    Founded Year <span class="required">*</span>
                 </label>
 
                 <input
                     type="number"
                     id="founded_year"
                     name="founded_year"
-                    placeholder="YYYY"
                     value="{{ franchise.founded_year }}"
+                    placeholder="YYYY"
                     min="1800"
                     max="2100"
+                    inputmode="numeric"
                     required
                 >
-
             </div>
 
-
-            <!-- Logo -->
             <div class="form-group">
-
                 <label for="logo_url">
                     Organization Logo
                 </label>
@@ -349,106 +400,96 @@
                     type="file"
                     id="logo_url"
                     name="logo_url"
-                    accept="image/*"
+                    accept="image/png,image/jpeg,image/webp"
                 >
 
                 {% if franchise.logo_url %}
                     <div class="current-logo">
-
                         <img
                             src="{{ franchise.logo_url.url }}"
                             alt="{{ franchise.name }} logo"
                         >
 
                         <span>
-                            Current logo
+                            Current organization logo
                         </span>
-
                     </div>
                 {% endif %}
-
             </div>
 
-
-            <!-- City -->
             <div class="form-group">
-
                 <label for="city">
-                    City
+                    City <span class="required">*</span>
                 </label>
 
                 <input
                     type="text"
                     id="city"
                     name="city"
-                    placeholder="Enter city"
                     value="{{ franchise.city }}"
+                    placeholder="Enter city"
+                    maxlength="100"
                     required
                 >
-
             </div>
 
-
-            <!-- State -->
             <div class="form-group">
-
                 <label for="state">
-                    State
+                    State <span class="required">*</span>
                 </label>
 
                 <input
                     type="text"
                     id="state"
                     name="state"
-                    placeholder="Enter state"
                     value="{{ franchise.state }}"
+                    placeholder="Enter state"
+                    maxlength="100"
                     required
                 >
-
             </div>
 
-
-            <!-- Country -->
             <div class="form-group">
-
                 <label for="country">
-                    Country
+                    Country <span class="required">*</span>
                 </label>
 
                 <input
                     type="text"
                     id="country"
                     name="country"
-                    placeholder="Enter country"
                     value="{{ franchise.country }}"
+                    placeholder="Enter country"
+                    maxlength="100"
                     required
                 >
-
             </div>
 
-
-            <!-- Buttons -->
-            <div class="button-group">
+            <div class="form-actions">
 
                 <a
                     href="{% url 'franchise_lists' %}"
-                    class="back-btn"
+                    class="btn btn-secondary"
                 >
-                    ← Cancel
+                    Cancel
                 </a>
 
                 <button
                     type="submit"
-                    class="update-btn"
+                    class="btn btn-primary"
                 >
                     Update Registration
                 </button>
 
             </div>
 
+            <p class="form-note">
+                Fields marked with * are required.
+            </p>
+
         </form>
 
-    </div>
+    </main>
 
 </body>
 </html>
